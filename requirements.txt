@@ -1,0 +1,8 @@
+pandas==0.20.3
+numpy==1.13.3
+statsmodels==0.6.1
+scikit_surprise==1.0.4
+matplotlib==1.5.1
+scipy==1.0.0
+scikit_learn==0.19.1
+surprise==0.1
