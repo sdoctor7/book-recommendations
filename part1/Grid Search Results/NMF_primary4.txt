@@ -1,0 +1,40 @@
+reader = Reader(rating_scale=(1, 5))
+
+param_grid = {'n_factors': [50,60],'n_epochs': [80,90], 'lr_bu': [0.0085], 'lr_bi': [0.0085],
+              'reg_pu': [0.085], 'reg_qi': [0.085]}
+
+grid_search = GridSearch(NMF, param_grid, measures=[u'rmse', u'mae'], verbose=1)
+
+sur_data = Dataset.load_from_df(train_10000_100[['user_id','book_id','rating']], reader)
+sur_data.split(3)  # data can now be used normally
+
+grid_search.evaluate(sur_data)
+
+------------
+Parameters combination 1 of 4
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8882
+Mean MAE : 0.6944
+------------
+------------
+Parameters combination 2 of 4
+params:  {'n_factors': 50, 'n_epochs': 90, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8871
+Mean MAE : 0.6960
+------------
+------------
+Parameters combination 3 of 4
+params:  {'n_factors': 60, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8823
+Mean MAE : 0.6888
+------------
+------------
+Parameters combination 4 of 4
+params:  {'n_factors': 60, 'n_epochs': 90, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8837
+Mean MAE : 0.6933
+------------
