@@ -1,0 +1,37 @@
+,RMSE,k,min_support,name,user_based,type
+0,0.878343616761,10,1,msd,False,With Means
+1,0.888193525669,50,1,msd,False,With Means
+2,0.888193487817,200,1,msd,False,With Means
+3,0.878343616761,10,3,msd,False,With Means
+4,0.888193525669,50,3,msd,False,With Means
+5,0.888193487817,200,3,msd,False,With Means
+6,0.865086973269,10,1,pearson,False,With Means
+7,0.868604206356,50,1,pearson,False,With Means
+8,0.868604204285,200,1,pearson,False,With Means
+9,0.865086973269,10,3,pearson,False,With Means
+10,0.868604206356,50,3,pearson,False,With Means
+11,0.868604204285,200,3,pearson,False,With Means
+12,0.872762732428,10,1,pearson_baseline,False,With Means
+13,0.872147041552,50,1,pearson_baseline,False,With Means
+14,0.872147041552,200,1,pearson_baseline,False,With Means
+15,0.872762732428,10,3,pearson_baseline,False,With Means
+16,0.872147041552,50,3,pearson_baseline,False,With Means
+17,0.872147041552,200,3,pearson_baseline,False,With Means
+0,0.884391723994,10,1,msd,False,With Z score
+1,0.891243590418,50,1,msd,False,With Z score
+2,0.891243605334,200,1,msd,False,With Z score
+3,0.884391723994,10,3,msd,False,With Z score
+4,0.891243590418,50,3,msd,False,With Z score
+5,0.891243605334,200,3,msd,False,With Z score
+6,0.866745674581,10,1,pearson,False,With Z score
+7,0.870072952937,50,1,pearson,False,With Z score
+8,0.870072952544,200,1,pearson,False,With Z score
+9,0.866745674581,10,3,pearson,False,With Z score
+10,0.870072952937,50,3,pearson,False,With Z score
+11,0.870072952544,200,3,pearson,False,With Z score
+12,0.874705564231,10,1,pearson_baseline,False,With Z score
+13,0.874174280462,50,1,pearson_baseline,False,With Z score
+14,0.874174280462,200,1,pearson_baseline,False,With Z score
+15,0.874705564231,10,3,pearson_baseline,False,With Z score
+16,0.874174280462,50,3,pearson_baseline,False,With Z score
+17,0.874174280462,200,3,pearson_baseline,False,With Z score
