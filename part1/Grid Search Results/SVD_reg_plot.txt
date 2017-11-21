@@ -1,0 +1,226 @@
+reader = Reader(rating_scale=(1, 5))
+
+param_grid = {'n_factors': [150],'n_epochs': [40], 'lr_all': [0.015],
+              'reg_all': [.005,0.01,0.015,0.02,0.025,0.03,\
+                          0.035,0.04,0.045,0.05,0.055, 0.06,\
+                         0.065,0.07,0.075,0.08,0.085, 0.09,\
+                         0.095,0.1,0.105,0.11,0.115, 0.12,\
+                         0.125,0.13,0.135,0.14,0.145, 0.15]}
+
+grid_search = GridSearch(SVD, param_grid, measures=[u'rmse', u'mae'], verbose=1)
+
+sur_data = Dataset.load_from_df(train_10000_100[['user_id','book_id','rating']], reader)
+sur_data.split(3)  # data can now be used normally
+
+grid_search.evaluate(sur_data)
+
+------------
+Parameters combination 1 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.005}
+------------
+Mean RMSE: 0.8982
+Mean MAE : 0.6962
+------------
+------------
+Parameters combination 2 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.01}
+------------
+Mean RMSE: 0.8827
+Mean MAE : 0.6842
+------------
+------------
+Parameters combination 3 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.015}
+------------
+Mean RMSE: 0.8736
+Mean MAE : 0.6770
+------------
+------------
+Parameters combination 4 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.02}
+------------
+Mean RMSE: 0.8684
+Mean MAE : 0.6723
+------------
+------------
+Parameters combination 5 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.025}
+------------
+Mean RMSE: 0.8650
+Mean MAE : 0.6692
+------------
+------------
+Parameters combination 6 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.03}
+------------
+Mean RMSE: 0.8614
+Mean MAE : 0.6660
+------------
+------------
+Parameters combination 7 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.035}
+------------
+Mean RMSE: 0.8605
+Mean MAE : 0.6651
+------------
+------------
+Parameters combination 8 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.04}
+------------
+Mean RMSE: 0.8577
+Mean MAE : 0.6628
+------------
+------------
+Parameters combination 9 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.045}
+------------
+Mean RMSE: 0.8566
+Mean MAE : 0.6618
+------------
+------------
+Parameters combination 10 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.05}
+------------
+Mean RMSE: 0.8567
+Mean MAE : 0.6616
+------------
+------------
+Parameters combination 11 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.055}
+------------
+Mean RMSE: 0.8544
+Mean MAE : 0.6604
+------------
+------------
+Parameters combination 12 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.06}
+------------
+Mean RMSE: 0.8542
+Mean MAE : 0.6601
+------------
+------------
+Parameters combination 13 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.065}
+------------
+Mean RMSE: 0.8531
+Mean MAE : 0.6596
+------------
+------------
+Parameters combination 14 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.07}
+------------
+Mean RMSE: 0.8533
+Mean MAE : 0.6604
+------------
+------------
+Parameters combination 15 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.075}
+------------
+Mean RMSE: 0.8537
+Mean MAE : 0.6608
+------------
+------------
+Parameters combination 16 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8533
+Mean MAE : 0.6608
+------------
+------------
+Parameters combination 17 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.085}
+------------
+Mean RMSE: 0.8533
+Mean MAE : 0.6614
+------------
+------------
+Parameters combination 18 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.09}
+------------
+Mean RMSE: 0.8535
+Mean MAE : 0.6621
+------------
+------------
+Parameters combination 19 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.095}
+------------
+Mean RMSE: 0.8540
+Mean MAE : 0.6628
+------------
+------------
+Parameters combination 20 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.1}
+------------
+Mean RMSE: 0.8551
+Mean MAE : 0.6644
+------------
+------------
+Parameters combination 21 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.105}
+------------
+Mean RMSE: 0.8559
+Mean MAE : 0.6654
+------------
+------------
+Parameters combination 22 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.11}
+------------
+Mean RMSE: 0.8567
+Mean MAE : 0.6667
+------------
+------------
+Parameters combination 23 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.115}
+------------
+Mean RMSE: 0.8578
+Mean MAE : 0.6679
+------------
+------------
+Parameters combination 24 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.12}
+------------
+Mean RMSE: 0.8592
+Mean MAE : 0.6696
+------------
+------------
+Parameters combination 25 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.125}
+------------
+Mean RMSE: 0.8609
+Mean MAE : 0.6713
+------------
+------------
+Parameters combination 26 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.13}
+------------
+Mean RMSE: 0.8625
+Mean MAE : 0.6732
+------------
+------------
+Parameters combination 27 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.135}
+------------
+Mean RMSE: 0.8640
+Mean MAE : 0.6748
+------------
+------------
+Parameters combination 28 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.14}
+------------
+Mean RMSE: 0.8660
+Mean MAE : 0.6768
+------------
+------------
+Parameters combination 29 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.145}
+------------
+Mean RMSE: 0.8681
+Mean MAE : 0.6790
+------------
+------------
+Parameters combination 30 of 30
+params:  {'n_factors': 150, 'n_epochs': 40, 'lr_all': 0.015, 'reg_all': 0.15}
+------------
+Mean RMSE: 0.8698
+Mean MAE : 0.6807
+------------

@@ -1,0 +1,460 @@
+reader = Reader(rating_scale=(1, 5))
+
+param_grid = {'n_factors': [40,50],'n_epochs': [60,80], 'lr_bu': [0.0075,0.0085], 'lr_bi': [0.0075,0.0085],
+              'reg_pu': [0.075,0.085], 'reg_qi': [0.075,0.085]}
+
+grid_search = GridSearch(NMF, param_grid, measures=[u'rmse', u'mae'], verbose=1)
+
+sur_data = Dataset.load_from_df(train_10000_100[['user_id','book_id','rating']], reader)
+sur_data.split(3)  # data can now be used normally
+
+grid_search.evaluate(sur_data)
+
+------------
+Parameters combination 1 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.9013
+Mean MAE : 0.6863
+------------
+------------
+Parameters combination 2 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8965
+Mean MAE : 0.6869
+------------
+------------
+Parameters combination 3 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8994
+Mean MAE : 0.6899
+------------
+------------
+Parameters combination 4 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8955
+Mean MAE : 0.6901
+------------
+------------
+Parameters combination 5 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.9005
+Mean MAE : 0.6859
+------------
+------------
+Parameters combination 6 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8958
+Mean MAE : 0.6863
+------------
+------------
+Parameters combination 7 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8998
+Mean MAE : 0.6894
+------------
+------------
+Parameters combination 8 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8941
+Mean MAE : 0.6895
+------------
+------------
+Parameters combination 9 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.9004
+Mean MAE : 0.6851
+------------
+------------
+Parameters combination 10 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.9003
+Mean MAE : 0.6904
+------------
+------------
+Parameters combination 11 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8975
+Mean MAE : 0.6878
+------------
+------------
+Parameters combination 12 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8934
+Mean MAE : 0.6892
+------------
+------------
+Parameters combination 13 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.9007
+Mean MAE : 0.6852
+------------
+------------
+Parameters combination 14 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8975
+Mean MAE : 0.6877
+------------
+------------
+Parameters combination 15 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8971
+Mean MAE : 0.6878
+------------
+------------
+Parameters combination 16 of 64
+params:  {'n_factors': 40, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8910
+Mean MAE : 0.6868
+------------
+------------
+Parameters combination 17 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8950
+Mean MAE : 0.6949
+------------
+------------
+Parameters combination 18 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8928
+Mean MAE : 0.6961
+------------
+------------
+Parameters combination 19 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8931
+Mean MAE : 0.6968
+------------
+------------
+Parameters combination 20 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8919
+Mean MAE : 0.6973
+------------
+------------
+Parameters combination 21 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8942
+Mean MAE : 0.6939
+------------
+------------
+Parameters combination 22 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8927
+Mean MAE : 0.6955
+------------
+------------
+Parameters combination 23 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8921
+Mean MAE : 0.6952
+------------
+------------
+Parameters combination 24 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8898
+Mean MAE : 0.6958
+------------
+------------
+Parameters combination 25 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8941
+Mean MAE : 0.6943
+------------
+------------
+Parameters combination 26 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8937
+Mean MAE : 0.6964
+------------
+------------
+Parameters combination 27 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8956
+Mean MAE : 0.6983
+------------
+------------
+Parameters combination 28 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8908
+Mean MAE : 0.6963
+------------
+------------
+Parameters combination 29 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8948
+Mean MAE : 0.6956
+------------
+------------
+Parameters combination 30 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8915
+Mean MAE : 0.6943
+------------
+------------
+Parameters combination 31 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8932
+Mean MAE : 0.6960
+------------
+------------
+Parameters combination 32 of 64
+params:  {'n_factors': 40, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8892
+Mean MAE : 0.6952
+------------
+------------
+Parameters combination 33 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8995
+Mean MAE : 0.6810
+------------
+------------
+Parameters combination 34 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8928
+Mean MAE : 0.6811
+------------
+------------
+Parameters combination 35 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8935
+Mean MAE : 0.6816
+------------
+------------
+Parameters combination 36 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8906
+Mean MAE : 0.6843
+------------
+------------
+Parameters combination 37 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8984
+Mean MAE : 0.6805
+------------
+------------
+Parameters combination 38 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8924
+Mean MAE : 0.6805
+------------
+------------
+Parameters combination 39 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8933
+Mean MAE : 0.6814
+------------
+------------
+Parameters combination 40 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8887
+Mean MAE : 0.6822
+------------
+------------
+Parameters combination 41 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8976
+Mean MAE : 0.6801
+------------
+------------
+Parameters combination 42 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8924
+Mean MAE : 0.6810
+------------
+------------
+Parameters combination 43 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8959
+Mean MAE : 0.6835
+------------
+------------
+Parameters combination 44 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8880
+Mean MAE : 0.6823
+------------
+------------
+Parameters combination 45 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8991
+Mean MAE : 0.6816
+------------
+------------
+Parameters combination 46 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8929
+Mean MAE : 0.6809
+------------
+------------
+Parameters combination 47 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8926
+Mean MAE : 0.6815
+------------
+------------
+Parameters combination 48 of 64
+params:  {'n_factors': 50, 'n_epochs': 60, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8898
+Mean MAE : 0.6838
+------------
+------------
+Parameters combination 49 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8887
+Mean MAE : 0.6890
+------------
+------------
+Parameters combination 50 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8879
+Mean MAE : 0.6910
+------------
+------------
+Parameters combination 51 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8876
+Mean MAE : 0.6912
+------------
+------------
+Parameters combination 52 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8856
+Mean MAE : 0.6920
+------------
+------------
+Parameters combination 53 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8874
+Mean MAE : 0.6876
+------------
+------------
+Parameters combination 54 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8890
+Mean MAE : 0.6927
+------------
+------------
+Parameters combination 55 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8890
+Mean MAE : 0.6926
+------------
+------------
+Parameters combination 56 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0075, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8860
+Mean MAE : 0.6923
+------------
+------------
+Parameters combination 57 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8881
+Mean MAE : 0.6890
+------------
+------------
+Parameters combination 58 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8905
+Mean MAE : 0.6936
+------------
+------------
+Parameters combination 59 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8875
+Mean MAE : 0.6917
+------------
+------------
+Parameters combination 60 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0075, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8883
+Mean MAE : 0.6943
+------------
+------------
+Parameters combination 61 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8897
+Mean MAE : 0.6904
+------------
+------------
+Parameters combination 62 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.075, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8873
+Mean MAE : 0.6911
+------------
+------------
+Parameters combination 63 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.075}
+------------
+Mean RMSE: 0.8865
+Mean MAE : 0.6906
+------------
+------------
+Parameters combination 64 of 64
+params:  {'n_factors': 50, 'n_epochs': 80, 'lr_bu': 0.0085, 'lr_bi': 0.0085, 'reg_pu': 0.085, 'reg_qi': 0.085}
+------------
+Mean RMSE: 0.8837
+Mean MAE : 0.6900
+------------

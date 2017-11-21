@@ -1,0 +1,76 @@
+reader = Reader(rating_scale=(1, 5))
+
+param_grid = {'n_factors': [160,180,200],'n_epochs': [45,55,65],\
+              'lr_all': [0.0225],'reg_all': [0.08]}
+
+grid_search = GridSearch(SVD, param_grid, measures=[u'rmse', u'mae'], verbose=1)
+
+sur_data = Dataset.load_from_df(train_10000_100[['user_id','book_id','rating']], reader)
+sur_data.split(3)  # data can now be used normally
+
+grid_search.evaluate(sur_data)
+
+[{'n_factors': 160, 'n_epochs': 45, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 160, 'n_epochs': 55, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 160, 'n_epochs': 65, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 180, 'n_epochs': 45, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 180, 'n_epochs': 55, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 180, 'n_epochs': 65, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 200, 'n_epochs': 45, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 200, 'n_epochs': 55, 'lr_all': 0.0225, 'reg_all': 0.08}, {'n_factors': 200, 'n_epochs': 65, 'lr_all': 0.0225, 'reg_all': 0.08}]
+------------
+Parameters combination 1 of 9
+params:  {'n_factors': 160, 'n_epochs': 45, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8526
+Mean MAE : 0.6604
+------------
+------------
+Parameters combination 2 of 9
+params:  {'n_factors': 160, 'n_epochs': 55, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8525
+Mean MAE : 0.6608
+------------
+------------
+Parameters combination 3 of 9
+params:  {'n_factors': 160, 'n_epochs': 65, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8527
+Mean MAE : 0.6610
+------------
+------------
+Parameters combination 4 of 9
+params:  {'n_factors': 180, 'n_epochs': 45, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8530
+Mean MAE : 0.6611
+------------
+------------
+Parameters combination 5 of 9
+params:  {'n_factors': 180, 'n_epochs': 55, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8523
+Mean MAE : 0.6608
+------------
+------------
+Parameters combination 6 of 9
+params:  {'n_factors': 180, 'n_epochs': 65, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8522
+Mean MAE : 0.6610
+------------
+------------
+Parameters combination 7 of 9
+params:  {'n_factors': 200, 'n_epochs': 45, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8523
+Mean MAE : 0.6610
+------------
+------------
+Parameters combination 8 of 9
+params:  {'n_factors': 200, 'n_epochs': 55, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8522
+Mean MAE : 0.6609
+------------
+------------
+Parameters combination 9 of 9
+params:  {'n_factors': 200, 'n_epochs': 65, 'lr_all': 0.0225, 'reg_all': 0.08}
+------------
+Mean RMSE: 0.8522
+Mean MAE : 0.6609
+------------
