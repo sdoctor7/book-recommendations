@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 from scipy import sparse
 import time
-
-# books = pd.read_csv('../part2/books.csv')
+from concurrent.futures import ProcessPoolExecutor
+import itertools
 
 #Parses the LibFM output model, returns w0, wj, and vj,f.
 #w0 is a single number, wj is an array of floats, vj,f is an array of array of floats
@@ -34,15 +34,6 @@ def parse_output_file(filename):
             vj.append(line_numbers)
     return w0, np.array(wj), np.array(vj)
 
-# w0, wj, vj = parse_output_file('model1.libfm')
-
-# num_col=len(wj)
-
-# wj = np.array(wj)
-# vj = np.array(vj)
-
-# books_genres = sparse.load_npz('books_genres.npz')
-
 def concatenate_csc_matrices_by_columns(matrix1, matrix2):
     new_data = np.concatenate((matrix1.data, matrix2.data))
     new_indices = np.concatenate((matrix1.indices, matrix2.indices))
@@ -51,6 +42,26 @@ def concatenate_csc_matrices_by_columns(matrix1, matrix2):
     new_ind_ptr = np.concatenate((matrix1.indptr, new_ind_ptr))
 
     return sparse.csc_matrix((new_data, new_indices, new_ind_ptr))
+
+def make_predictions(i, x_mat, w, V, w0):
+    x = x_mat[i,:]
+    x2 = (x.T).dot(x)
+    x_upper = sparse.triu(x2, k=1)
+    pred_inter = 0
+    my_tup_upper = sparse.find(x_upper)
+
+    rows = my_tup_upper[0]
+    cols = my_tup_upper[1]
+    vals = my_tup_upper[2]
+    Vrows = V[rows,:]
+    Vcols = V[cols,:]
+
+    test = np.einsum('ij,ij->i', Vrows, Vcols)
+    pred_inter = np.sum(np.multiply(vals, test))
+
+    pred_linear = x.dot(w)
+    prediction = (w0 + pred_linear + pred_inter)[0]
+    return prediction
 
 def output_top_k(v, w, w0, k, user, book_genres, weight_vector):
     """Function to create predictions
@@ -66,14 +77,13 @@ def output_top_k(v, w, w0, k, user, book_genres, weight_vector):
     Returns:
     top k list"""
 
-    # start_time = time.time()
-
     # pick chosen user
     users = sparse.csc_matrix((10000, 53425), dtype=int)
     users[:,user] = 1
 
     # make matrix
     x_mat = (concatenate_csc_matrices_by_columns(users, book_genres)).tocsr()
+    # print(x_mat.shape)
 
     # set weights
     weights = np.ones(x_mat.shape[1])
@@ -81,29 +91,18 @@ def output_top_k(v, w, w0, k, user, book_genres, weight_vector):
     V = np.multiply(v, weights.reshape(-1,1)) #transpose?
 
     # make predictions
+    start = time.time()
     pred_mat = np.zeros(10000)
     for i in range(10000): # for each book
-        x = x_mat[i,:]
-        x2 = (x.T).dot(x)
-        x_upper = sparse.triu(x2, k=1)
-        pred_inter = 0
-        my_tup_upper = sparse.find(x_upper)
-        for entry in range(my_tup_upper[0].shape[0]):
-            row = my_tup_upper[0][entry]
-            col = my_tup_upper[1][entry]
-            value = my_tup_upper[2][entry]
-            pred_inter += value*((V[row,:]).dot(V[col,:]))
-        pred_linear = x.dot(w)
-        pred_mat[i] = w0 + pred_linear + pred_inter
+        pred_mat[i] = make_predictions(i, x_mat, w, V, w0)
+    print(time.time() - start)
     
     # return top k
     top_ids = np.argsort(-pred_mat)[:k]
     return top_ids
 
+
 def get_book_info(top_ids, books):
-    # top_books = []
-    # for i in top_ids:
-        # top_books.append(books.loc())
     top_books = books[books.book_id.isin(top_ids)][['title', 'authors']]
     # print(time.time() - start_time)
     return top_books

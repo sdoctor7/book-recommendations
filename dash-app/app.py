@@ -5,37 +5,27 @@ import dash_html_components as html
 import pandas as pd
 import numpy as np
 from scipy import sparse
+import time
 from predict import parse_output_file, output_top_k, get_book_info
-
-# book info
-books_genres = sparse.load_npz('books_genres.npz').tocsc()
-books = pd.read_csv('../part2/books.csv')
-
-# get model parameters
-w0, wj, vj = parse_output_file('model1.libfm')
-
-# make predictions
-weight_vector = np.ones(22)
-top_ids = output_top_k(vj, wj, w0, 5, 42652, books_genres, weight_vector)
-top_books = get_book_info(top_ids, books)
 
 def generate_table(dataframe, max_rows=10):
     return html.Table(
         # Header
-        [html.Tr([html.Th(col, style={'textAlign': 'center'}) for col in dataframe.columns])] +
+        [html.Tr([html.Th(col, style={'textAlign': 'center'}) for col in dataframe.columns], 
+            style={'padding': '0px 12px'})] +
 
         # Body
         [html.Tr([
-            html.Td(dataframe.iloc[i][col], style={'textAlign': 'center'}) for col in dataframe.columns
+            html.Td(dataframe.iloc[i][col], 
+                style={'textAlign': 'center', 'padding': '6px 12px'}) for col in dataframe.columns
         ]) for i in range(min(len(dataframe), max_rows))],
-    style={'marginLeft': 'auto', 'marginRight': 'auto'}
-    )
+    style={'marginLeft': 'auto', 'marginRight': 'auto'})
 
 app = dash.Dash()
 server = app.server
 
 app.layout = html.Div(children=[
-    html.H2(children='What Should I Read Next?'),
+    html.H2(children='What Should I Read Next?', style={'marginBottom': '12px'}),
 
     html.Div(id='recs-table', 
         style={'width': '60%', 'marginLeft': 'auto', 'marginRight': 'auto'}),
@@ -51,27 +41,27 @@ app.layout = html.Div(children=[
         html.Div(children=[
 
             html.Div(children=[
-                dcc.Slider(id='scifi', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='scifi', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
             
             html.Div(children=[
-                dcc.Slider(id='mystery', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='mystery', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='romance', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='romance', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='historical', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='historical', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='comics', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='comics', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='children', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='children', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 5})
         
         ], className='three columns', style={'marginLeft': '9%', 'marginRight': 10}),
@@ -99,27 +89,27 @@ app.layout = html.Div(children=[
         html.Div(children=[
 
             html.Div(children=[
-                dcc.Slider(id='science', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='science', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
             
             html.Div(children=[
-                dcc.Slider(id='business', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='business', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='art', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='art', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='biography', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='biography', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='history', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='history', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='religion', min=0, max=1, value=0.5, step=0.1)
+                dcc.Slider(id='religion', min=0, max=100, value=50, step=10)
             ], style={'marginTop': 5, 'marginBottom': 5}),
         
         ], className='three columns', style={'marginLeft': 10, 'marginRight': '9%'}),
@@ -133,6 +123,13 @@ app.layout = html.Div(children=[
 ], style={'textAlign': 'center'})
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+
+# book info
+books_genres = sparse.load_npz('books_genres.npz').tocsc()
+books = pd.read_csv('books.csv')
+
+# get model parameters
+w0, wj, vj = parse_output_file('model1.libfm')
 
 @app.callback(
     dash.dependencies.Output('recs-table', 'children'),
@@ -151,7 +148,9 @@ app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"
     dash.dependencies.State('religion', 'value')])
 def update_genres(n_clicks, scifi, mystery, romance, historical, comics, 
     children, science, business, art, biography, history, religion):
-    weight_vector = np.ones(22)
+    # weight_vector = np.ones(22)
+    weight_vector = [art, biography, business, romance, children, religion, 50, comics, 50,
+        50, mystery, scifi, 50, 50, historical, history, 50, 50, science, 50, 50, 50]
     top_ids = output_top_k(vj, wj, w0, 5, 42652, books_genres, weight_vector)
     top_books = get_book_info(top_ids, books)
     return generate_table(top_books)
