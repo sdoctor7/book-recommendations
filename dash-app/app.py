@@ -148,7 +148,6 @@ w0, wj, vj = parse_output_file('model1.libfm')
     dash.dependencies.State('religion', 'value')])
 def update_genres(n_clicks, scifi, mystery, romance, historical, comics, 
     children, science, business, art, biography, history, religion):
-    # weight_vector = np.ones(22)
     weight_vector = [art, biography, business, romance, children, religion, 50, comics, 50,
         50, mystery, scifi, 50, 50, historical, history, 50, 50, science, 50, 50, 50]
     top_ids = output_top_k(vj, wj, w0, 5, 42652, books_genres, weight_vector)
