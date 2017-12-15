@@ -8,6 +8,8 @@ from scipy import sparse
 import time
 from predict import parse_output_file, make_all_predictions, get_top_k
 
+range_value = 2
+
 def generate_table(dataframe, max_rows=20):
     return html.Table(
         # Header
@@ -58,27 +60,27 @@ app.layout = html.Div(children=[
         html.Div(children=[
 
             html.Div(children=[
-                dcc.Slider(id='scifi', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='scifi', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
             
             html.Div(children=[
-                dcc.Slider(id='mystery', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='mystery', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='romance', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='romance', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='historical', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='historical', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='comics', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='comics', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='children', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='children', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 5})
         
         ], className='three columns', style={'marginLeft': '9%', 'marginRight': 10}),
@@ -106,27 +108,27 @@ app.layout = html.Div(children=[
         html.Div(children=[
 
             html.Div(children=[
-                dcc.Slider(id='science', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='science', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
             
             html.Div(children=[
-                dcc.Slider(id='business', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='business', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='art', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='art', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='biography', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='biography', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='history', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='history', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='religion', min=-2, max=2, value=0, step=0.5)
+                dcc.Slider(id='religion', min=-range_value, max=range_value, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 5}),
         
         ], className='three columns', style={'marginLeft': 10, 'marginRight': '9%'}),
@@ -187,7 +189,7 @@ def update_genres(n_clicks, user_choice, scifi, mystery, romance, historical, co
     else:
         input_vector = np.array([art, biography, business, children, 0, comics, 0, 0, 
             0, 0, historical, history, 0, mystery, 0, religion, romance, science, scifi, 0, 0, 0])
-        weight_vector = np.power(10.0, input_vector)
+        weight_vector = np.power(6.0, input_vector)
         pred_mat = make_all_predictions(vj, wj, w0, user, ratings, features, weight_vector)
         top_books = get_top_k(pred_mat, books, 5)
         top_books.columns = ['Title', 'Author']
