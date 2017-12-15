@@ -2,7 +2,7 @@
 ## Adam Coviensky, Stephanie Doctor, Marika Lohmus, Mark Salama
 ### Personalization Theory, Fall 2017
 
-This repository contains the code and explanations for our Personalization Theory class project.
+This repository contains the code and explanations for our Personalization Theory class project, in which we built book recommender systems using a dataset of the 10,000 most popular books on Goodreads. The final web application can be viewed at what-should-i-read-next.herokuapp.com  
 
 The file structure is as follows:  
 ratings.csv: contains the ratings data from Goodreads used for this project  
