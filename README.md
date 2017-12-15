@@ -6,7 +6,7 @@ This repository contains the code and explanations for our Personalization Theor
 
 The file structure is as follows:  
 ratings.csv: contains the ratings data from Goodreads used for this project  
-ratings_us.csv: same as ratings.csv, with additional ratings for the four of us
+ratings_us.csv: same as ratings.csv, with additional ratings for the four of us  
 requirements.txt: packages needed to run code in this repository  
 part1/: folder containing all work for part 1 of the project  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_results.csv: runtime, accuracy, and coverage for each model  
