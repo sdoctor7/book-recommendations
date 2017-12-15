@@ -31,7 +31,7 @@ part2/: folder containing all work for part 2 of the project
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_model_go.libfm: DELETE (OLD MODEL)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make_FM_features.ipynb: code to generate model features  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries.csv: book summaries  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries_nlp.ipynb: code to collect and process book summaries
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries_nlp.ipynb: code to collect and process book summaries  
 dash-app/: repository for heroku web application  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Procfile: file for heroku  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app.py: web app code  
