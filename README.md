@@ -29,6 +29,7 @@ part2/: folder containing all work for part 2 of the project
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genres.csv: list of genres  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_genres.ipynb: code to match tags to genres  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make_FM_features.ipynb: code to generate model features  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;report.pdf: writeup of part 1  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries.csv: book summaries  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries_nlp.ipynb: code to collect and process book summaries  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags.csv: tag ID-label mapping  
