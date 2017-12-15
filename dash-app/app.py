@@ -8,6 +8,13 @@ from scipy import sparse
 import time
 from predict import parse_output_file, output_top_k, get_book_info
 
+top_books_default = pd.DataFrame([
+    {'title': 'blah', 'author': 'me'},
+    {'title': 'blah', 'author': 'me'},
+    {'title': 'blah', 'author': 'me'},
+    {'title': 'blah', 'author': 'me'},
+    {'title': 'blah', 'author': 'me'}])
+
 def generate_table(dataframe, max_rows=10):
     return html.Table(
         # Header
@@ -26,6 +33,8 @@ server = app.server
 
 app.layout = html.Div(children=[
     html.H2(children='What Should I Read Next?', style={'marginBottom': '12px'}),
+
+    # html.H6('While we generate ')
 
     html.Div(id='recs-table', 
         style={'width': '60%', 'marginLeft': 'auto', 'marginRight': 'auto'}),
@@ -129,7 +138,7 @@ books_genres = sparse.load_npz('books_genres.npz').tocsc()
 books = pd.read_csv('books.csv')
 
 # get model parameters
-w0, wj, vj = parse_output_file('model1.libfm')
+w0, wj, vj = parse_output_file('go_model_go.libfm')
 
 @app.callback(
     dash.dependencies.Output('recs-table', 'children'),
@@ -148,11 +157,19 @@ w0, wj, vj = parse_output_file('model1.libfm')
     dash.dependencies.State('religion', 'value')])
 def update_genres(n_clicks, scifi, mystery, romance, historical, comics, 
     children, science, business, art, biography, history, religion):
-    weight_vector = [art, biography, business, romance, children, religion, 50, comics, 50,
-        50, mystery, scifi, 50, 50, historical, history, 50, 50, science, 50, 50, 50]
-    top_ids = output_top_k(vj, wj, w0, 5, 42652, books_genres, weight_vector)
-    top_books = get_book_info(top_ids, books)
-    return generate_table(top_books)
+    if n_clicks == 0:
+        return html.Div([
+            html.H6('blah'),
+            generate_table(top_books_default)
+            ])
+    else:
+        weight_vector = [art, biography, business, romance, children, religion, 50, comics, 50,
+            50, mystery, scifi, 50, 50, historical, history, 50, 50, science, 50, 50, 50]
+        top_ids = output_top_k(vj, wj, w0, 5, 53428, books_genres, weight_vector)
+        top_books = get_book_info(top_ids, books)
+        return html.Div([
+            generate_table(top_books)
+            ])
 
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -78,8 +78,10 @@ def output_top_k(v, w, w0, k, user, book_genres, weight_vector):
     top k list"""
 
     # pick chosen user
-    users = sparse.csc_matrix((10000, 53425), dtype=int)
-    users[:,user] = 1
+    # users = sparse.csc_matrix((10000, 53425), dtype=int)
+    # users[:,user] = 1
+    users = sparse.csc_matrix((10000, 53428), dtype=int)
+    users[:,user-1] = 1
 
     # make matrix
     x_mat = (concatenate_csc_matrices_by_columns(users, book_genres)).tocsr()
@@ -98,7 +100,7 @@ def output_top_k(v, w, w0, k, user, book_genres, weight_vector):
     print(time.time() - start)
     
     # return top k
-    top_ids = np.argsort(-pred_mat)[:k]
+    top_ids = np.argsort(-pred_mat)[:k] + 1
     return top_ids
 
 
