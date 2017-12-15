@@ -6,16 +6,9 @@ import pandas as pd
 import numpy as np
 from scipy import sparse
 import time
-from predict import parse_output_file, output_top_k, get_book_info
+from predict import parse_output_file, make_all_predictions, get_top_k
 
-top_books_default = pd.DataFrame([
-    {'title': 'blah', 'author': 'me'},
-    {'title': 'blah', 'author': 'me'},
-    {'title': 'blah', 'author': 'me'},
-    {'title': 'blah', 'author': 'me'},
-    {'title': 'blah', 'author': 'me'}])
-
-def generate_table(dataframe, max_rows=10):
+def generate_table(dataframe, max_rows=20):
     return html.Table(
         # Header
         [html.Tr([html.Th(col, style={'textAlign': 'center'}) for col in dataframe.columns], 
@@ -26,7 +19,7 @@ def generate_table(dataframe, max_rows=10):
             html.Td(dataframe.iloc[i][col], 
                 style={'textAlign': 'center', 'padding': '6px 12px'}) for col in dataframe.columns
         ]) for i in range(min(len(dataframe), max_rows))],
-    style={'marginLeft': 'auto', 'marginRight': 'auto'})
+    style={'marginLeft': 'auto', 'marginRight': 'auto', 'marginTop': 25, 'marginBottom': 25})
 
 app = dash.Dash()
 server = app.server
@@ -34,43 +27,58 @@ server = app.server
 app.layout = html.Div(children=[
     html.H2(children='What Should I Read Next?', style={'marginBottom': '12px'}),
 
-    # html.H6('While we generate ')
+    html.Div(children=[
+        html.P("Hello there! First of all, who are you? You can play as one of us, or pick a random user."),
+        dcc.RadioItems(
+                id='user-choice',
+                options=[{'label': i, 'value': i} for i in ['Adam', 'Marika', 'Mark', 'Steph', 'Random']],
+                value='Random',
+                labelStyle={'display': 'inline-block', 'padding': 5}
+            )
+        ]),
 
     html.Div(id='recs-table', 
         style={'width': '60%', 'marginLeft': 'auto', 'marginRight': 'auto'}),
 
-    html.P(children="Want to narrow it down? Try adjusting the weights for some \
-        popular genres. Move a genre's slider to the right if you want more of \
-        it, and to the left if you want less. When you're ready for new \
-        suggestions, hit the Submit button!",
-     style={'marginTop': 25}),
+    html.Div(children=[
+        html.P("When you're ready to calculate your rating-based recommendations, press Submit! \
+            Please note it may take 15 seconds or so to load."),
+
+        html.Button(id='submit-button', n_clicks=0, children='Submit', 
+            style={'marginTop': 15, 'marginBottom': 25}),
+
+        html.P(children="Want to customize your recommendations? Try adjusting the weights for \
+            some popular genres. Move a genre's slider to the right if you want more of \
+            it, and to the left if you want less. When you're ready, hit the Submit button again.")
+        
+        ], style={'marginLeft': 'auto', 'marginRight': 'auto', 'width': '60%'}),
 
     html.Div(children=[
         
         html.Div(children=[
 
             html.Div(children=[
-                dcc.Slider(id='scifi', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='scifi', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
             
             html.Div(children=[
-                dcc.Slider(id='mystery', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='mystery', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='romance', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='romance', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='historical', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='historical', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='comics', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='comics', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='children', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='children', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 5})
         
         ], className='three columns', style={'marginLeft': '9%', 'marginRight': 10}),
@@ -98,51 +106,50 @@ app.layout = html.Div(children=[
         html.Div(children=[
 
             html.Div(children=[
-                dcc.Slider(id='science', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='science', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
             
             html.Div(children=[
-                dcc.Slider(id='business', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='business', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='art', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='art', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='biography', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='biography', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='history', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='history', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 18}),
 
             html.Div(children=[
-                dcc.Slider(id='religion', min=0, max=100, value=50, step=10)
+                dcc.Slider(id='religion', min=-2, max=2, value=0, step=0.5)
             ], style={'marginTop': 5, 'marginBottom': 5}),
         
         ], className='three columns', style={'marginLeft': 10, 'marginRight': '9%'}),
     
     ], 
     style={'marginTop': 20, 'width': '100%'},
-    className='row'), 
-
-    html.Button(id='submit-button', n_clicks=0, children='Submit')
+    className='row')
 
 ], style={'textAlign': 'center'})
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
 
-# book info
-books_genres = sparse.load_npz('books_genres.npz').tocsc()
-books = pd.read_csv('books.csv')
-
-# get model parameters
-w0, wj, vj = parse_output_file('go_model_go.libfm')
+features = sparse.load_npz('model_features.npz').tocsc() # model features
+books = pd.read_csv('books.csv') # book information
+w0, wj, vj = parse_output_file('go_model_go.libfm') # model parameters
+ratings = pd.read_csv('ratings_us.csv') # ratings
+genre_recs = pd.read_csv('genre_diversity_recs.csv') # genre recommendations
+# user = 53428
 
 @app.callback(
     dash.dependencies.Output('recs-table', 'children'),
-    [dash.dependencies.Input('submit-button', 'n_clicks')],
+    [dash.dependencies.Input('submit-button', 'n_clicks'),
+    dash.dependencies.Input('user-choice', 'value')],
     [dash.dependencies.State('scifi', 'value'),
     dash.dependencies.State('mystery', 'value'),
     dash.dependencies.State('romance', 'value'),
@@ -155,18 +162,36 @@ w0, wj, vj = parse_output_file('go_model_go.libfm')
     dash.dependencies.State('biography', 'value'),
     dash.dependencies.State('history', 'value'),
     dash.dependencies.State('religion', 'value')])
-def update_genres(n_clicks, scifi, mystery, romance, historical, comics, 
+def update_genres(n_clicks, user_choice, scifi, mystery, romance, historical, comics, 
     children, science, business, art, biography, history, religion):
+    
+    user_map = {
+    'Adam': 53425,
+    'Marika': 53426,
+    'Mark': 53427,
+    'Steph': 53428, 
+    'Random': np.random.randint(1, 53429)
+    }
+    user = user_map[user_choice]
+    
     if n_clicks == 0:
+        genre_recs_user = genre_recs[genre_recs.user_id == user][['genre_label', 'title', 'authors']]
+        genre_recs_user.columns = ['Genre', 'Title', 'Author']
+        two_genres = genre_recs_user.Genre.unique()
         return html.Div([
-            html.H6('blah'),
-            generate_table(top_books_default)
-            ])
+            html.P('Before we get started recommending books based on your rating \
+                history, we thought you might like to try something a little different. Based on \
+                the genres you like to read, we think you might also like {} and {} books. Not \
+                sure where to start? Try these!'.format(two_genres[0], two_genres[1])),
+            generate_table(genre_recs_user)
+            ], style={'marginTop': 15})
     else:
-        weight_vector = [art, biography, business, romance, children, religion, 50, comics, 50,
-            50, mystery, scifi, 50, 50, historical, history, 50, 50, science, 50, 50, 50]
-        top_ids = output_top_k(vj, wj, w0, 5, 53428, books_genres, weight_vector)
-        top_books = get_book_info(top_ids, books)
+        input_vector = np.array([art, biography, business, children, 0, comics, 0, 0, 
+            0, 0, historical, history, 0, mystery, 0, religion, romance, science, scifi, 0, 0, 0])
+        weight_vector = np.power(10.0, input_vector)
+        pred_mat = make_all_predictions(vj, wj, w0, user, ratings, features, weight_vector)
+        top_books = get_top_k(pred_mat, books, 5)
+        top_books.columns = ['Title', 'Author']
         return html.Div([
             generate_table(top_books)
             ])

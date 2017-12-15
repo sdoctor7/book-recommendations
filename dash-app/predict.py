@@ -43,7 +43,7 @@ def concatenate_csc_matrices_by_columns(matrix1, matrix2):
 
     return sparse.csc_matrix((new_data, new_indices, new_ind_ptr))
 
-def make_predictions(i, x_mat, w, V, w0):
+def make_prediction(i, x_mat, w, V, w0):
     x = x_mat[i,:]
     x2 = (x.T).dot(x)
     x_upper = sparse.triu(x2, k=1)
@@ -63,32 +63,32 @@ def make_predictions(i, x_mat, w, V, w0):
     prediction = (w0 + pred_linear + pred_inter)[0]
     return prediction
 
-def output_top_k(v, w, w0, k, user, book_genres, weight_vector):
+def make_all_predictions(v, w, w0, user, ratings, features, weight_vector):
     """Function to create predictions
+    
     Input:
-    V: interaction term matrix
+    v: interaction term matrix
     w: linear feature biases (array)
     w0: global bias (float)
-    k: number of books we want to recommend
     user: user_id we are looking at
-    book_genres: matrix of books one hot encoded and genres in csc sparse format
+    ratings: ratings matrix
+    features: FM model features
     weight_vector: vector of weights for the genres. Should be of length 22 (one for each genre)
-    scaler: by what factor we want to scale the genre weights
+    
     Returns:
-    top k list"""
+    predicted rating for each book, with 0 for already-rated books
+    """
 
     # pick chosen user
-    # users = sparse.csc_matrix((10000, 53425), dtype=int)
-    # users[:,user] = 1
     users = sparse.csc_matrix((10000, 53428), dtype=int)
     users[:,user-1] = 1
 
     # make matrix
-    x_mat = (concatenate_csc_matrices_by_columns(users, book_genres)).tocsr()
-    # print(x_mat.shape)
+    x_mat = (concatenate_csc_matrices_by_columns(users, features)).tocsr()
 
     # set weights
     weights = np.ones(x_mat.shape[1])
+    weights[-22:] = weight_vector
     w = np.multiply(w, weights)
     V = np.multiply(v, weights.reshape(-1,1)) #transpose?
 
@@ -96,15 +96,19 @@ def output_top_k(v, w, w0, k, user, book_genres, weight_vector):
     start = time.time()
     pred_mat = np.zeros(10000)
     for i in range(10000): # for each book
-        pred_mat[i] = make_predictions(i, x_mat, w, V, w0)
+        pred_mat[i] = make_prediction(i, x_mat, w, V, w0)
     print(time.time() - start)
-    
-    # return top k
+
+    # mask books that have already been rated
+    user_rated = ratings[ratings.user_id == user].book_id.values
+    mask = np.array([0 if i in user_rated else 1 for i in range(1, 10001)])
+
+    return np.multiply(pred_mat, mask)
+
+
+def get_top_k(pred_mat, books, k):
     top_ids = np.argsort(-pred_mat)[:k] + 1
-    return top_ids
-
-
-def get_book_info(top_ids, books):
     top_books = books[books.book_id.isin(top_ids)][['title', 'authors']]
-    # print(time.time() - start_time)
     return top_books
+
+
