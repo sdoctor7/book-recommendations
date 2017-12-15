@@ -20,11 +20,12 @@ part1/: folder containing all work for part 1 of the project
 part2/: folder containing all work for part 2 of the project  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FastFM_Convergence.ipynb: implementation of FastFM library for comparison  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grid_Search_LibFM.ipynb: implementation of LibFM library and grid search for parameter tuning
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LibFM_Accuracy_Results.ipynb: Analysis of LIbFM grid search results
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LibFM_Accuracy_Results.ipynb: Analysis of LIbFM grid search results  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;book_tags.csv: counts of user-defined tags for each book  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books.csv: book metadata  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_meta_info.csv: book metadata with genre tag counts  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_with_summaries.p: NLP features  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genre_recommender_final.ipynb: genre recommendation model  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genres.csv: list of genres  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_genres.ipynb: code to match tags to genres  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make_FM_features.ipynb: code to generate model features  
