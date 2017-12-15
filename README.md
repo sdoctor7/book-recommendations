@@ -17,28 +17,28 @@ part1/: folder containing all work for part 1 of the project
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plot-model-comparisons.ipynb: plots comparing runtime, accuracy, and coverage of models  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;report.pdf: writeup of part 1  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surprise_SVD_NMF.ipynb: implementation and results of SVD and NMF via SurPRISE  
-part2/: folder containing all work for part 2 of the project
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FastFM_Convergence.ipynb: implementation of FastFM library for comparison
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grid_Search_LibFM.ipynb: implementation of LibFM library and grid search for parameter tuning
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;book_ids_to_genres.csv: ???
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books.csv: book metadata
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_genres.npz: DELETE I THINK! (old model or old genres? stick this in the dash-app folder?)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_meta_info.csv: book metadata with genre tag counts
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_with_summaries.p: NLP features
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_with_tag_counts.csv: genre tag counts???
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genres.csv: list of genres
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_genres.ipynb: code to match tags to genres
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_model_go.libfm: DELETE (OLD MODEL)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make_FM_features.ipynb: code to generate model features
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries.csv: book summaries
+part2/: folder containing all work for part 2 of the project  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FastFM_Convergence.ipynb: implementation of FastFM library for comparison  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grid_Search_LibFM.ipynb: implementation of LibFM library and grid search for parameter tuning  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;book_ids_to_genres.csv: ???  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books.csv: book metadata  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_genres.npz: DELETE I THINK! (old model or old genres? stick this in the dash-app folder?)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_meta_info.csv: book metadata with genre tag counts  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_with_summaries.p: NLP features  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books_with_tag_counts.csv: genre tag counts???  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genres.csv: list of genres  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_genres.ipynb: code to match tags to genres  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_model_go.libfm: DELETE (OLD MODEL)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;make_FM_features.ipynb: code to generate model features  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries.csv: book summaries  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;summaries_nlp.ipynb: code to collect and process book summaries
-dash-app/: repository for heroku web application
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Procfile: file for heroku
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app.py: web app code
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books.csv: book metadata
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genre_diversity_recs.csv: pre-computed diversity recommendations for each user
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_model_go.libfm: DELETE! OLD MODEL!
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model_features.npz: DELETE! OLD MODEL!
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;predict.py: code to make predictions with user input
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ratings_us.csv: ratings data plus our ratings
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requirements.txt: package requirements for web app
+dash-app/: repository for heroku web application  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Procfile: file for heroku  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app.py: web app code  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;books.csv: book metadata  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genre_diversity_recs.csv: pre-computed diversity recommendations for each user  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_model_go.libfm: DELETE! OLD MODEL!  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model_features.npz: DELETE! OLD MODEL!  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;predict.py: code to make predictions with user input  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ratings_us.csv: ratings data plus our ratings  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requirements.txt: package requirements for web app  
