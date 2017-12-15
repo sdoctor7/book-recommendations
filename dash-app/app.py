@@ -139,10 +139,11 @@ app.layout = html.Div(children=[
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
 
-features = sparse.load_npz('model_features.npz').tocsc() # model features
-# features = sparse.load_npz('model_features_genres_only.npz').tocsc() # model features
+# features = sparse.load_npz('model_features.npz').tocsc() # model features
+features = sparse.load_npz('model_features_genres_only.npz').tocsc() # model features
 books = pd.read_csv('books.csv') # book information
-w0, wj, vj = parse_output_file('go_model_go.libfm') # model parameters
+# w0, wj, vj = parse_output_file('go_model_go.libfm') # model parameters
+w0, wj, vj = parse_output_file('model_genres_only') # model parameters
 ratings = pd.read_csv('ratings_us.csv') # ratings
 genre_recs = pd.read_csv('genre_diversity_recs.csv') # genre recommendations
 
